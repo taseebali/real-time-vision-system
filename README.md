@@ -168,12 +168,13 @@ python run.py
 ### Basic Usage
 
 ```python
-from src.core.assistant import BlindAssistant
+from src.core.optimized_assistant import OptimizedAssistant
 
-# Create assistant with display
-assistant = BlindAssistant(
+# Create assistant with display and scene captioning
+assistant = OptimizedAssistant(
     show_display=True,
-    camera_ip="192.168.1.100"  # Your phone's IP
+    camera_ip="192.168.1.100",  # Your phone's IP
+    enable_captioning=True      # Enable AI scene descriptions
 )
 
 # Start the assistant
@@ -183,8 +184,12 @@ assistant.start()
 ### Advanced Usage
 
 ```python
-# Disable visual display (audio only)
-assistant = BlindAssistant(show_display=False, camera_ip="192.168.1.100")
+# Disable visual display (audio only) or disable scene captioning
+assistant = OptimizedAssistant(
+    show_display=False, 
+    camera_ip="192.168.1.100",
+    enable_captioning=False  # Disable captioning for faster processing
+)
 
 # Use with custom settings
 from src.services.detection.object_detector import ObjectDetector

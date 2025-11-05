@@ -38,4 +38,6 @@ pytest>=7.4.0
 pytest-cov>=4.1.0
 
 # Utilities
-colorama>=0.4.6 
+colorama>=0.4.6
+psutil>=5.9.0  # For performance monitoring
+# nvidia-ml-py3>=7.352.0  # Optional: For GPU utilization monitoring (requires NVIDIA drivers) 
