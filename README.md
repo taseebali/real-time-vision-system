@@ -20,7 +20,7 @@
 ### 🚧 In Development
 - Text Recognition (OCR) - Currently disabled due to compatibility issues
 - Voice Commands - Model loaded but not integrated
-- Image Captioning - Available but disabled for performance
+- Image Captioning - Available but disabled for performance and compatability issues
 
 ## 📋 Table of Contents
 - [Demo](#-demo)
