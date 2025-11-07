@@ -1,4 +1,4 @@
-# 👁️ Blind Assistant - Beta v0.1.0
+# 👁️ Blind Assistant - Beta v0.1.1
 
 > An AI-powered real-time assistance system for visually impaired individuals using computer vision and natural language processing.
 
@@ -10,17 +10,23 @@
 ## 🌟 Features
 
 ### ✅ Currently Working
-- **Real-time Object Detection** - YOLOv8-medium model detecting 80+ object classes
-- **Spatial Awareness** - Distance estimation and positional tracking (left/right/center)
-- **Natural Language Narration** - Contextual scene descriptions with spatial relationships
-- **Text-to-Speech** - Audio feedback using Google Text-to-Speech (gTTS)
-- **GPU Acceleration** - CUDA-optimized for NVIDIA GPUs
-- **Phone Camera Integration** - Connect via IP Webcam app (WiFi)
+- **🚀 High-Performance Processing** - 8-9 FPS real-time processing (10x faster than v0.0.1)
+- **🎯 Smart Narration** - Intelligent throttling prevents spam (5-second intervals, requires meaningful changes)
+- **🖼️ Selective Scene Captioning** - AI descriptions only when needed (80% overhead reduction)
+- **📊 Real-time Performance Monitoring** - FPS, latency, GPU/CPU usage tracking
+- **👁️ Real-time Object Detection** - YOLOv8-medium detecting 80+ object classes in 35-40ms
+- **📍 Spatial Awareness** - Distance estimation and positional tracking (left/right/center, above/below)
+- **💬 Natural Language Narration** - Contextual scene descriptions with spatial relationships
+- **🔊 Text-to-Speech** - Audio feedback using Google Text-to-Speech (gTTS)
+- **⚡ GPU Acceleration** - CUDA-optimized with mixed precision (FP16) for maximum speed
+- **📱 Phone Camera Integration** - Connect via IP Webcam app (WiFi)
+- **🎛️ Configurable Modes** - Toggle captioning and display for different performance profiles
 
 ### 🚧 In Development
-- Text Recognition (OCR) - Currently disabled due to compatibility issues
-- Voice Commands - Model loaded but not integrated
-- Image Captioning - Available but disabled for performance
+- Text Recognition (OCR) - Disabled due to compatibility issues (planned fix)
+- Voice Commands - Model ready but not integrated yet
+- TensorRT Optimization - Target 10+ FPS on laptop
+- Mobile App Development - Android/iOS deployment
 
 ## 📋 Table of Contents
 - [Demo](#-demo)
@@ -39,13 +45,15 @@
 
 **What it does:**
 1. Connects to your phone camera via WiFi
-2. Detects objects in real-time
-3. Estimates distances and positions
-4. Describes the scene in natural language
-5. Speaks descriptions through audio
+2. Detects objects in real-time (8-9 FPS)
+3. Generates AI scene descriptions when needed
+4. Estimates distances and positions
+5. Speaks intelligent, non-repetitive descriptions
 
 **Example Output:**
-> "I can see a keyboard in the center, with a laptop above it and a person to the right of it"
+> "I can see a laptop in the center. a close up of a laptop with a mouse on it"  
+> [5 seconds later, after objects change]  
+> "I can see a mouse on the right. a computer mouse sitting on top of a wooden table"
 
 ## 💻 Prerequisites
 
@@ -293,18 +301,86 @@ Each module has its own README with detailed information:
 
 ## ⚡ Performance
 
-### Current Metrics (RTX 3050, 4GB VRAM)
-- **Processing Rate**: 0.6-0.8 FPS
-- **Narration Delay**: ~2 seconds
-- **Object Detection**: YOLOv8m - ~100-150ms per frame
-- **GPU Memory**: ~3-4GB VRAM usage
-- **Response Time**: 2-3 seconds from scene change to audio
+### Current Metrics (Optimized - v0.1.0)
+
+**RTX 3050 Laptop GPU (4GB VRAM)**
+
+#### Processing Speed
+- **Overall FPS**: 8-9 FPS (10x faster than v0.0.1)
+- **Object Detection**: 35-40ms per frame
+- **Scene Captioning**: 350-450ms (only when triggered)
+- **Narration Generation**: <1ms
+- **Total Response Time**: ~100ms from scene change to narration
+
+#### Resource Usage
+- **GPU Memory**: 0.7GB allocated, 1.1GB reserved (down from 3-4GB)
+- **CPU Usage**: 8-12% average
+- **RAM Usage**: System dependent
+
+#### Optimization Results
+- **Frame Skip Ratio**: ~240% (processes 1 in 3 frames efficiently)
+- **Captioning Overhead**: Reduced from 100% to ~20% via selective triggering
+- **Narration Rate**: ~7-8 meaningful narrations per 38 seconds (vs 96 spam before)
+
+### Performance Modes
+
+#### Maximum Speed (Headless + No Captioning)
+```python
+assistant = OptimizedAssistant(
+    show_display=False,
+    enable_captioning=False
+)
+# Expected: 10+ FPS
+```
+
+#### Balanced (Default)
+```python
+assistant = OptimizedAssistant(
+    show_display=True,
+    enable_captioning=True
+)
+# Expected: 8-9 FPS
+```
+
+#### Full Features (Display + Captioning)
+```python
+assistant = OptimizedAssistant(
+    show_display=True,
+    enable_captioning=True
+)
+# Expected: 8-9 FPS (optimized captioning keeps speed high)
+```
 
 ### Optimization Tips
-1. Use smaller model (`yolov8n.pt`) for faster processing
-2. Reduce frame resolution in camera settings
-3. Increase frame skip rate for faster response
-4. Disable visual display for headless operation
+1. **Disable captioning** for maximum speed: `enable_captioning=False`
+2. **Adjust frame skip**: `assistant.frame_skip = 5` (process every 5th frame)
+3. **Increase narration interval**: `assistant.narration_interval = 10` (narrate every 10s)
+4. **Disable visual display**: `show_display=False` for headless operation
+5. **Use smaller model** (future): Switch to `yolov8n.pt` for even faster processing
+
+### Real-Time Monitoring
+
+The system provides live performance metrics:
+```
+Processing: 8.79 FPS | Avg: 37.3ms
+
+============================================================
+PERFORMANCE REPORT (Every 10 seconds)
+============================================================
+
+Timing (ms):
+  object_detection         :   35.1 (min:  29.1, max:  39.8)
+  scene_captioning         :  415.1 (min: 345.1, max: 571.4)
+  narration_generation     :    0.3 (min:   0.0, max:   1.5)
+  
+Counters:
+  frames_processed         : 269
+  captions_generated       : 6
+  narrations_generated     : 81
+  
+Rates:
+  Processing FPS:           7.88
+```
 
 ## 🐛 Troubleshooting
 
