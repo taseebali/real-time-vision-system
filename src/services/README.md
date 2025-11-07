@@ -62,13 +62,29 @@ objects, annotated_frame = detector.detect(frame)
 - Bounding box detection
 
 #### Caption Generator (BLIP)
-**Status**: ⚠️ Disabled (performance)  
+**Status**: ✅ Working (Selective Mode)  
 **Purpose**: Generate natural language descriptions of images
 
 **Features**:
 - Context-aware captions
-- GPU accelerated
-- High accuracy
+- GPU accelerated with FP16 precision
+- High accuracy scene descriptions
+- Selective triggering to minimize overhead
+
+**Performance**:
+- Processing time: 350-450ms per caption
+- Only triggered when needed (every 10s or 30% scene change)
+- Reduces overhead from 100% to ~20% through smart triggering
+
+**Usage**:
+```python
+from src.services.detection.caption_generator import CaptionGenerator
+
+# Initialize with FP16 for speed
+captioner = CaptionGenerator()
+caption, confidence = captioner.generate(frame)
+print(f"{caption} (confidence: {confidence:.2f})")
+```
 
 ### Audio Services
 
@@ -350,18 +366,22 @@ finally:
 
 ## Performance Considerations
 
-### GPU Memory Usage
-- **Object Detector**: ~1.5GB VRAM
-- **Text Detector**: ~2GB VRAM (when enabled)
-- **Caption Generator**: ~1GB VRAM (when enabled)
-- **Total**: ~3-4GB VRAM for all services
+### GPU Memory Usage (Optimized)
+- **Object Detector (YOLOv8m)**: ~0.7GB VRAM
+- **Caption Generator (BLIP + FP16)**: ~0.4GB VRAM (when loaded)
+- **Total**: ~1.1GB VRAM reserved
 
-### Processing Times (RTX 3050)
-- **Object Detection**: 100-150ms per frame
-- **Text Detection**: 200-300ms per frame (when enabled)
-- **Image Captioning**: 200-300ms per frame (when enabled)
-- **Narration Generation**: <10ms
+### Processing Times (RTX 3050 Laptop)
+- **Object Detection**: 35-40ms per frame
+- **Image Captioning**: 350-450ms per frame (selectively triggered)
+- **Narration Generation**: <1ms
 - **Text-to-Speech**: 500-1000ms (depends on internet)
+
+### Overall System Performance
+- **Processing FPS**: 8-9 FPS with captioning enabled
+- **Frame Skip Ratio**: ~240% (processes 1 in 3 frames)
+- **Narration Rate**: ~7-8 meaningful narrations per 38 seconds
+- **Caption Rate**: ~6 captions per 38 seconds (selective triggering)
 
 ## Configuration
 

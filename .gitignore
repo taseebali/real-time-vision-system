@@ -68,7 +68,8 @@ test_videos/
 output/
 results/
 annotated_*/
-
+OPTIMIZATION_ROADMAP.md
+TESTING_OPTIMIZED.md
 # Logs
 *.log
 logs/
