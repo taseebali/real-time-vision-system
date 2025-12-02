@@ -1,4 +1,4 @@
-# Blind Assistant Docker Image
+# Real Time Vision System Docker Image
 # Supports both CPU and GPU (NVIDIA CUDA) execution
 
 # Use NVIDIA CUDA base image for GPU support

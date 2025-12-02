@@ -1,6 +1,6 @@
-# 👁️ Blind Assistant - Beta v0.1.1
+# 👁️ Real Time Vision System - Beta v0.1.1
 
-> An AI-powered real-time assistance system for visually impaired individuals using computer vision and natural language processing.
+> An AI-powered real-time visual analysis system using computer vision and natural language processing for scene understanding and intelligent narration.
 
 [![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
@@ -82,8 +82,8 @@ Choose your preferred installation method:
 
 ```bash
 # Clone the repository
-git clone https://github.com/taseebali/blind-assistant.git
-cd blind-assistant
+git clone https://github.com/taseebali/real-time-vision-system.git
+cd real-time-vision-system
 
 # Build and run with Docker Compose
 docker-compose -f docker/docker-compose.yml up --build
@@ -105,8 +105,8 @@ docker\docker-build.bat run 192.168.1.100
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/taseebali/blind-assistant.git
-cd blind-assistant
+git clone https://github.com/taseebali/real-time-vision-system.git
+cd real-time-vision-system
 
 # 2. Run the setup script
 # Windows
@@ -121,8 +121,8 @@ chmod +x setup.sh
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/taseebali/blind-assistant.git
-cd blind-assistant
+git clone https://github.com/taseebali/real-time-vision-system.git
+cd real-time-vision-system
 
 # 2. Create virtual environment
 python -m venv .venv
@@ -145,28 +145,28 @@ python -m tests.test_cuda
 
 ## ⚡ Quick Start
 
-### Step 1: Setup Phone Camera
+### Step 1: Setup Video Source
 
-1. Install **IP Webcam** app on your Android phone
+1. Install **IP Webcam** app on your Android phone (or use any IP camera/HTTP video source)
 2. Open the app and start the server
 3. Note the IP address shown (e.g., `192.168.1.100`)
-4. Make sure your phone and computer are on the same WiFi network
+4. Make sure your device and computer are on the same network
 
-### Step 2: Run the Assistant
+### Step 2: Run the System
 
 ```bash
 # Activate virtual environment (if not already active)
 .\.venv\Scripts\activate  # Windows
 source .venv/bin/activate  # Linux/Mac
 
-# Run with your phone's IP address
+# Run with your camera's IP address
 python run.py
-# When prompted, enter your phone's IP address (e.g., 192.168.1.100)
+# When prompted, enter your camera's IP address (e.g., 192.168.1.100)
 ```
 
 ### Step 3: Use the Application
 
-- Point your phone camera at objects/scenes
+- Point your camera at scenes for analysis
 - Listen to the audio descriptions
 - Press `Q` to quit the display window
 - Press `Ctrl+C` to stop the application
@@ -178,22 +178,22 @@ python run.py
 ```python
 from src.core.optimized_assistant import OptimizedAssistant
 
-# Create assistant with display and scene captioning
-assistant = OptimizedAssistant(
+# Create system with display and scene captioning
+vision_system = OptimizedAssistant(
     show_display=True,
-    camera_ip="192.168.1.100",  # Your phone's IP
+    camera_ip="192.168.1.100",  # Your camera's IP
     enable_captioning=True      # Enable AI scene descriptions
 )
 
-# Start the assistant
-assistant.start()
+# Start the system
+vision_system.start()
 ```
 
 ### Advanced Usage
 
 ```python
 # Disable visual display (audio only) or disable scene captioning
-assistant = OptimizedAssistant(
+vision_system = OptimizedAssistant(
     show_display=False, 
     camera_ip="192.168.1.100",
     enable_captioning=False  # Disable captioning for faster processing
@@ -256,11 +256,11 @@ python -m tests.test_nvidia
 ## 📁 Project Structure
 
 ```
-blind-assistant/
+real-time-vision-system/
 ├── src/
 │   ├── core/
 │   │   ├── README.md                    # Core module documentation
-│   │   └── assistant.py                 # Main BlindAssistant orchestrator
+│   │   └── optimized_assistant.py       # Main system orchestrator
 │   ├── services/
 │   │   ├── detection/
 │   │   │   ├── README.md                # Detection services docs
@@ -293,10 +293,10 @@ blind-assistant/
 ### Module Documentation
 
 Each module has its own README with detailed information:
-- **[Core Module](src/core/README.md)** - Assistant orchestration and coordination
+- **[Core Module](src/core/README.md)** - System orchestration and coordination
 - **[Services](src/services/README.md)** - Individual AI services and utilities
 - **[Detection Services](src/services/detection/README.md)** - Computer vision models
-- **[Audio Services](src/services/audio/README.md)** - Speech synthesis and recognition
+- **[Audio Services](src/services/audio/README.md)** - Audio synthesis and output
 - **[Tests](tests/README.md)** - Testing framework and guidelines
 
 ## ⚡ Performance
@@ -479,7 +479,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Author**: Taseeb Ali
 **GitHub**: [@taseebali](https://github.com/taseebali)
-**Repository**: [blind-assistant](https://github.com/taseebali/blind-assistant)
+**Repository**: [real-time-vision-system](https://github.com/taseebali/real-time-vision-system)
 
 ## 🗺️ Roadmap
 
@@ -499,4 +499,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Note**: This is a beta version. Please report issues on the [GitHub Issues](https://github.com/taseebali/blind-assistant/issues) page.
+**Note**: This is a beta version. Please report issues on the [GitHub Issues](https://github.com/taseebali/real-time-vision-system/issues) page.

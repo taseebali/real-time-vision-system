@@ -1,11 +1,11 @@
 @echo off
-REM Docker build and run script for Blind Assistant (Windows)
+REM Docker build and run script for Real Time Vision System (Windows)
 
 setlocal enabledelayedexpansion
 
-set IMAGE_NAME=blind-assistant
+set IMAGE_NAME=real-time-vision-system
 set IMAGE_TAG=latest
-set CONTAINER_NAME=blind-assistant
+set CONTAINER_NAME=real-time-vision-system
 
 REM Colors (Windows 10+)
 set "GREEN=[92m"
@@ -174,7 +174,7 @@ exit /b 0
 
 :show_help
 echo.
-echo Blind Assistant Docker Management Script (Windows)
+echo Real Time Vision System Docker Management Script (Windows)
 echo.
 echo Usage: docker-build.bat [COMMAND] [OPTIONS]
 echo.

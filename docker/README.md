@@ -1,6 +1,6 @@
 # Docker Deployment Guide
 
-Complete guide for running Blind Assistant in Docker containers with GPU support.
+Complete guide for running Real Time Vision System in Docker containers with GPU support.
 
 ## Prerequisites
 
@@ -43,7 +43,7 @@ sudo apt-get install docker-compose-plugin
 
 ```bash
 # Navigate to project root
-cd /path/to/BlindAssitant
+cd /path/to/real-time-vision-system
 
 # Set your camera IP
 export CAMERA_IP=192.168.1.100
@@ -65,7 +65,7 @@ docker-compose -f docker/docker-compose.yml down
 
 ```bash
 # Build the image
-docker build -t blind-assistant:latest -f docker/Dockerfile .
+docker build -t real-time-vision-system:latest -f docker/Dockerfile .
 
 # Run with GPU support
 docker run --rm -it \
@@ -75,7 +75,7 @@ docker run --rm -it \
   -e CAMERA_IP=192.168.1.100 \
   -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
   -v $(pwd)/models:/app/models \
-  blind-assistant:latest
+  real-time-vision-system:latest
 
 # Run in headless mode (no display)
 docker run --rm -it \
@@ -84,7 +84,7 @@ docker run --rm -it \
   -e CAMERA_IP=192.168.1.100 \
   -e SHOW_DISPLAY=false \
   -v $(pwd)/models:/app/models \
-  blind-assistant:latest
+  real-time-vision-system:latest
 ```
 
 ## Configuration
@@ -110,7 +110,7 @@ docker run --rm -it \
   -e CONFIDENCE_THRESHOLD=0.40 \
   -e SHOW_DISPLAY=true \
   -v $(pwd)/models:/app/models \
-  blind-assistant:latest
+  real-time-vision-system:latest
 ```
 
 ## Building Images
@@ -119,10 +119,10 @@ docker run --rm -it \
 
 ```bash
 # Build with default settings
-docker build -t blind-assistant:latest -f docker/Dockerfile .
+docker build -t real-time-vision-system:latest -f docker/Dockerfile .
 
 # Build with specific tag
-docker build -t blind-assistant:v0.1.0-beta -f docker/Dockerfile .
+docker build -t real-time-vision-system:v0.1.0-beta -f docker/Dockerfile .
 ```
 
 ### Multi-stage Build (CPU-only)
@@ -143,7 +143,7 @@ RUN pip install torch torchvision torchaudio
 # Build with custom Python version
 docker build \
   --build-arg PYTHON_VERSION=3.11 \
-  -t blind-assistant:latest \
+  -t real-time-vision-system:latest \
   -f docker/Dockerfile .
 ```
 
@@ -235,10 +235,10 @@ For better isolation:
 
 ```yaml
 networks:
-  - blind-assistant-net
+  - real-time-vision-system-net
 
 networks:
-  blind-assistant-net:
+  real-time-vision-system-net:
     driver: bridge
 ```
 
@@ -248,10 +248,10 @@ networks:
 
 ```bash
 # Inside container
-docker exec -it blind-assistant nvidia-smi
+docker exec -it real-time-vision-system nvidia-smi
 
 # Or run directly
-docker run --rm --gpus all blind-assistant:latest nvidia-smi
+docker run --rm --gpus all real-time-vision-system:latest nvidia-smi
 ```
 
 ### Limit GPU Usage
@@ -313,10 +313,10 @@ docker run --rm -it \
 
 ```bash
 # Check network connectivity
-docker exec -it blind-assistant ping 192.168.1.100
+docker exec -it real-time-vision-system ping 192.168.1.100
 
 # Test camera URL
-docker exec -it blind-assistant curl http://192.168.1.100:8080/video
+docker exec -it real-time-vision-system curl http://192.168.1.100:8080/video
 
 # Use host network mode
 network_mode: host
@@ -354,37 +354,37 @@ sudo chown -R $(id -u):$(id -g) models/ test_output/
 docker swarm init
 
 # Deploy stack
-docker stack deploy -c docker/docker-compose.yml blind-assistant
+docker stack deploy -c docker/docker-compose.yml real-time-vision-system
 
 # Check status
-docker stack services blind-assistant
+docker stack services real-time-vision-system
 
 # Remove stack
-docker stack rm blind-assistant
+docker stack rm real-time-vision-system
 ```
 
 ### Using Kubernetes
 
-Create `blind-assistant-deployment.yaml`:
+Create `real-time-vision-system-deployment.yaml`:
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: blind-assistant
+  name: real-time-vision-system
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: blind-assistant
+      app: real-time-vision-system
   template:
     metadata:
       labels:
-        app: blind-assistant
+        app: real-time-vision-system
     spec:
       containers:
-      - name: blind-assistant
-        image: blind-assistant:latest
+      - name: real-time-vision-system
+        image: real-time-vision-system:latest
         env:
         - name: CAMERA_IP
           value: "192.168.1.100"
@@ -396,7 +396,7 @@ spec:
 Deploy:
 
 ```bash
-kubectl apply -f blind-assistant-deployment.yaml
+kubectl apply -f real-time-vision-system-deployment.yaml
 ```
 
 ## Performance Optimization
@@ -405,7 +405,7 @@ kubectl apply -f blind-assistant-deployment.yaml
 
 ```bash
 # Use BuildKit for better caching
-DOCKER_BUILDKIT=1 docker build -t blind-assistant:latest -f docker/Dockerfile .
+DOCKER_BUILDKIT=1 docker build -t real-time-vision-system:latest -f docker/Dockerfile .
 ```
 
 ### Multi-stage Build
@@ -424,7 +424,7 @@ COPY --from=builder /root/.local /root/.local
 
 ```bash
 # Check image size
-docker images blind-assistant
+docker images real-time-vision-system
 
 # Remove unnecessary files
 # Add to Dockerfile:
@@ -499,23 +499,23 @@ docker system prune -a --volumes
 
 ```bash
 # Monitor container resources
-docker stats blind-assistant
+docker stats real-time-vision-system
 
 # Check logs
-docker logs -f blind-assistant
+docker logs -f real-time-vision-system
 
 # Execute commands inside container
-docker exec -it blind-assistant bash
+docker exec -it real-time-vision-system bash
 ```
 
 ### Health Checks
 
 ```bash
 # Check container health
-docker inspect --format='{{.State.Health.Status}}' blind-assistant
+docker inspect --format='{{.State.Health.Status}}' real-time-vision-system
 
 # View health check logs
-docker inspect --format='{{json .State.Health}}' blind-assistant | jq
+docker inspect --format='{{json .State.Health}}' real-time-vision-system | jq
 ```
 
 ## CI/CD Integration
@@ -536,11 +536,11 @@ jobs:
     - uses: actions/checkout@v3
     
     - name: Build Docker image
-      run: docker build -t blind-assistant:${{ github.sha }} -f docker/Dockerfile .
+      run: docker build -t real-time-vision-system:${{ github.sha }} -f docker/Dockerfile .
     
     - name: Test image
       run: |
-        docker run --rm blind-assistant:${{ github.sha }} python -m pytest tests/
+        docker run --rm real-time-vision-system:${{ github.sha }} python -m pytest tests/
 ```
 
 ## Additional Resources

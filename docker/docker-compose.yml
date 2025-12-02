@@ -1,12 +1,12 @@
 version: '3.8'
 
 services:
-  blind-assistant:
+  real-time-vision-system:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    image: blind-assistant:latest
-    container_name: blind-assistant
+    image: real-time-vision-system:latest
+    container_name: real-time-vision-system
     
     # GPU support (requires nvidia-docker2)
     runtime: nvidia

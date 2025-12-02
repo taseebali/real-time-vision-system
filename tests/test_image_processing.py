@@ -1,5 +1,5 @@
 """
-Integration test for the Blind Assistant using static images
+Integration test for the Real Time Vision System using static images
 """
 
 import os

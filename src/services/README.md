@@ -1,6 +1,6 @@
 # Services Module
 
-This module contains all AI services and utility components for the Blind Assistant.
+This module contains all AI services and utility components for the Real Time Vision System.
 
 ## Overview
 
@@ -274,7 +274,7 @@ tts = TextToSpeech()
 
 # Speak multiple messages
 messages = [
-    "Welcome to Blind Assistant",
+    "Welcome to Real Time Vision System",
     "I can help you understand your surroundings",
     "Point your camera at objects to detect them"
 ]

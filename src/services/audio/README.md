@@ -256,7 +256,7 @@ import time
 tts = TextToSpeech()
 
 # Speak a simple message
-tts.speak("Hello, welcome to Blind Assistant")
+tts.speak("Hello, welcome to Real Time Vision System")
 
 # Wait for speech to complete
 time.sleep(3)
@@ -380,11 +380,11 @@ import time
 
 tts = TextToSpeech()
 
-# Simulate interactive assistant
+# Simulate interactive system
 narrations = [
-    "Welcome to Blind Assistant",
-    "I will help you understand your surroundings",
-    "Point your camera at objects",
+    "Welcome to Real Time Vision System",
+    "I will analyze your surroundings",
+    "Point your camera at scenes",
     "I will describe what I see",
     "Press Q to quit"
 ]

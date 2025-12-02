@@ -1,5 +1,5 @@
 #!/bin/bash
-# Docker build and run script for Blind Assistant
+# Docker build and run script for Real Time Vision System
 
 set -e
 
@@ -10,9 +10,9 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Configuration
-IMAGE_NAME="blind-assistant"
+IMAGE_NAME="real-time-vision-system"
 IMAGE_TAG="latest"
-CONTAINER_NAME="blind-assistant"
+CONTAINER_NAME="real-time-vision-system"
 
 # Functions
 print_info() {
@@ -127,7 +127,7 @@ test_image() {
 
 show_help() {
     cat << EOF
-Blind Assistant Docker Management Script
+Real Time Vision System Docker Management Script
 
 Usage: $0 [COMMAND] [OPTIONS]
 

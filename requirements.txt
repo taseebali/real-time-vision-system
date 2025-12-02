@@ -1,4 +1,4 @@
-# Blind Assistant - Dependencies
+# Real Time Vision System - Dependencies
 # Python 3.11+ required
 
 # Core Dependencies

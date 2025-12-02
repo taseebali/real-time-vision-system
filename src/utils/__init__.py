@@ -1,5 +1,5 @@
 """
-Utility modules for Blind Assistant
+Utility modules for Real Time Vision System
 """
 
 from .performance_monitor import PerformanceMonitor, Timer

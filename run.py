@@ -1,12 +1,12 @@
 """
-Run the optimized Blind Assistant with performance monitoring
+Run the Real Time Vision System with performance monitoring
 """
 
 from src.core.optimized_assistant import OptimizedAssistant
 
 def main():
     print("\n" + "="*60)
-    print("OPTIMIZED BLIND ASSISTANT - PERFORMANCE TEST")
+    print("REAL TIME VISION SYSTEM - PERFORMANCE TEST")
     print("="*60)
     
     # Get camera IP
@@ -33,18 +33,18 @@ def main():
     print("Press 'Q' in display window to quit\n")
     
     # Initialize and start
-    assistant = OptimizedAssistant(
+    vision_system = OptimizedAssistant(
         show_display=show_display_bool,
         camera_ip=camera_ip,
         enable_captioning=enable_captioning
     )
     
     try:
-        assistant.start()
+        vision_system.start()
     except KeyboardInterrupt:
         print("\nStopping...")
     finally:
-        assistant.cleanup()
+        vision_system.cleanup()
 
 if __name__ == "__main__":
     main()

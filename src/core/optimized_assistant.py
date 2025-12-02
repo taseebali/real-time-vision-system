@@ -20,20 +20,20 @@ from src.utils.performance_monitor import PerformanceMonitor, Timer
 
 class OptimizedAssistant:
     """
-    Optimized Blind Assistant with:
+    Optimized Real Time Vision System with:
     - Selective scene captioning (only when needed)
     - Performance monitoring
     - Adaptive frame processing
-    - Smart narration strategies
+    - Smart analysis strategies
     """
     
     def __init__(self, show_display=True, camera_ip=None, enable_captioning=True):
         """
-        Initialize the Optimized Blind Assistant.
+        Initialize the Real Time Vision System.
         
         Args:
             show_display (bool): Whether to show the visual display
-            camera_ip (str): IP address of the phone running IP Webcam
+            camera_ip (str): IP address of the camera (IP Webcam or other source)
             enable_captioning (bool): Enable scene captioning feature
         """
         self.show_display = show_display
@@ -86,9 +86,9 @@ class OptimizedAssistant:
         print("Initialization complete!")
     
     def start(self):
-        """Start the assistant and begin processing frames."""
+        """Start the system and begin processing frames."""
         print("\n" + "="*60)
-        print("STARTING OPTIMIZED BLIND ASSISTANT")
+        print("STARTING REAL TIME VISION SYSTEM")
         print("="*60)
         print(f"Captioning: {'ENABLED' if self.enable_captioning else 'DISABLED'}")
         print(f"Display: {'ENABLED' if self.show_display else 'DISABLED'}")
@@ -117,7 +117,7 @@ class OptimizedAssistant:
                 while self.running:
                     time.sleep(0.1)
         except KeyboardInterrupt:
-            print("\nStopping Optimized Assistant...")
+            print("\nStopping Real Time Vision System...")
         finally:
             self.cleanup()
     
@@ -343,12 +343,12 @@ class OptimizedAssistant:
     
     def _display_loop(self):
         """Display annotated frames."""
-        cv2.namedWindow('Optimized Blind Assistant', cv2.WINDOW_NORMAL)
+        cv2.namedWindow('Real Time Vision System', cv2.WINDOW_NORMAL)
         
         while self.running:
             try:
                 frame = self.display_queue.get(timeout=0.1)
-                cv2.imshow('Optimized Blind Assistant', frame)
+                cv2.imshow('Real Time Vision System', frame)
                 
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     self.running = False

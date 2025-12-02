@@ -1,6 +1,6 @@
 # Core Module
 
-This module contains the main orchestration logic for the Blind Assistant application.
+This module contains the main orchestration logic for the Real Time Vision System application.
 
 ## Overview
 
@@ -20,7 +20,7 @@ The main `OptimizedAssistant` class that orchestrates the entire application wit
 #### Key Features
 
 - **🚀 High Performance**: Achieves 8-9 FPS processing (10x improvement over original)
-- **🎯 Smart Narration**: Intelligent throttling (every 5 seconds, requires 2+ object changes)
+- **🎯 Smart Analysis**: Intelligent throttling (every 5 seconds, requires 2+ object changes)
 - **🖼️ Selective Captioning**: Scene captioning only when needed (every 10 seconds or 30% scene change)
 - **📊 Performance Monitoring**: Real-time metrics tracking (FPS, latency, GPU usage)
 - **⚡ Adaptive Processing**: Frame skipping and smart resource management
@@ -33,12 +33,12 @@ The main `OptimizedAssistant` class that orchestrates the entire application wit
 ```python
 OptimizedAssistant
 ├── Camera Thread (_capture_frames)
-│   └── Continuously captures frames from IP Webcam
+│   └── Continuously captures frames from camera source
 ├── Processing Thread (_process_frames)
 │   ├── Adaptive frame skipping (every 3rd frame)
 │   ├── Object detection with YOLOv8 (35-40ms)
 │   ├── Selective scene captioning with BLIP (~400ms, triggered smartly)
-│   ├── Smart narration generation (<1ms)
+│   ├── Smart analysis generation (<1ms)
 │   └── Performance metrics tracking
 ├── Audio Thread (_handle_audio)
 │   └── Converts narrations to speech with queue management
@@ -68,7 +68,7 @@ OptimizedAssistant
 - **Interval**: Every 5 seconds minimum
 - **Trigger**: Requires 2+ object changes (additions/removals/moves)
 - **Logic**: Scene change AND time passed (prevents spam)
-- **Result**: ~7-8 meaningful narrations per 38 seconds (vs 96 before optimization)
+- **Result**: ~7-8 meaningful narrations per 38 seconds
 
 ## Usage
 
@@ -125,24 +125,24 @@ python run.py
 
 ### `__init__(show_display=True, camera_ip=None, enable_captioning=True)`
 
-Initialize the Optimized Blind Assistant.
+Initialize the Real Time Vision System.
 
 **Parameters:**
 - `show_display` (bool): Whether to show the visual display window with performance overlay
-- `camera_ip` (str): IP address of the phone running IP Webcam app
+- `camera_ip` (str): IP address of the camera (IP Webcam app or other source)
 - `enable_captioning` (bool): Enable scene captioning with BLIP model (adds ~400ms but provides context)
 
 **Example:**
 ```python
 # Full features
-assistant = OptimizedAssistant(
+vision_system = OptimizedAssistant(
     show_display=True,
     camera_ip="192.168.1.100",
     enable_captioning=True
 )
 
 # Maximum speed (no captioning)
-assistant = OptimizedAssistant(
+vision_system = OptimizedAssistant(
     show_display=False,
     camera_ip="192.168.1.100",
     enable_captioning=False
@@ -151,7 +151,7 @@ assistant = OptimizedAssistant(
 
 ### `start()`
 
-Start the assistant and begin processing frames with performance monitoring.
+Start the system and begin processing frames with performance monitoring.
 
 **Behavior:**
 - Starts all worker threads
@@ -163,7 +163,7 @@ Start the assistant and begin processing frames with performance monitoring.
 **Example:**
 ```python
 try:
-    assistant.start()
+    vision_system.start()
 except KeyboardInterrupt:
     print("Stopping...")
 ```
@@ -182,9 +182,9 @@ Clean up resources and stop all threads with final performance report.
 **Example:**
 ```python
 try:
-    assistant.start()
+    vision_system.start()
 finally:
-    assistant.cleanup()  # Always cleanup, even on error
+    vision_system.cleanup()  # Always cleanup, even on error
 ```
 
 ## Threading Model
@@ -340,25 +340,25 @@ from src.core.optimized_assistant import OptimizedAssistant
 
 def main():
     # Get camera IP from user
-    camera_ip = input("Enter phone IP address (e.g., 192.168.1.100): ")
+    camera_ip = input("Enter camera IP address (e.g., 192.168.1.100): ")
     
-    # Initialize assistant with all features
-    assistant = OptimizedAssistant(
+    # Initialize system with all features
+    vision_system = OptimizedAssistant(
         show_display=True,         # Show video feed with performance overlay
         camera_ip=camera_ip,
         enable_captioning=True     # Enable AI scene descriptions
     )
     
-    print("Starting Optimized Blind Assistant...")
+    print("Starting Real Time Vision System...")
     print("Features: Object Detection + Scene Captioning + Performance Monitoring")
     print("Press 'Q' or Ctrl+C to stop")
     
     try:
-        assistant.start()
+        vision_system.start()
     except KeyboardInterrupt:
         print("\nStopping...")
     finally:
-        assistant.cleanup()
+        vision_system.cleanup()
         print("Cleanup complete - Final performance report shown above")
 
 if __name__ == "__main__":
@@ -372,7 +372,7 @@ from src.core.optimized_assistant import OptimizedAssistant
 
 # Perfect for deployment on devices without screens
 # Achieves maximum FPS by disabling display and captioning
-assistant = OptimizedAssistant(
+vision_system = OptimizedAssistant(
     show_display=False,          # No visual display
     camera_ip="192.168.1.100",
     enable_captioning=False      # Disable captioning for speed
@@ -380,9 +380,9 @@ assistant = OptimizedAssistant(
 
 try:
     print("Running in headless mode (max performance)...")
-    assistant.start()
+    vision_system.start()
 except KeyboardInterrupt:
-    assistant.cleanup()
+    vision_system.cleanup()
 ```
 
 ### Custom Performance Tuning
@@ -391,20 +391,20 @@ except KeyboardInterrupt:
 from src.core.optimized_assistant import OptimizedAssistant
 
 # Initialize with custom settings
-assistant = OptimizedAssistant(
+vision_system = OptimizedAssistant(
     show_display=True,
     camera_ip="192.168.1.100",
     enable_captioning=True
 )
 
 # Fine-tune performance parameters
-assistant.frame_skip = 5              # Process every 5th frame (faster but less responsive)
-assistant.narration_interval = 3      # More frequent narrations (every 3 seconds)
-assistant.caption_interval = 15       # Less frequent captions (every 15 seconds)
-assistant.min_scene_change = 3        # Require more changes before narrating
+vision_system.frame_skip = 5              # Process every 5th frame (faster but less responsive)
+vision_system.narration_interval = 3      # More frequent narrations (every 3 seconds)
+vision_system.caption_interval = 15       # Less frequent captions (every 15 seconds)
+vision_system.min_scene_change = 3        # Require more changes before narrating
 
 # Start with custom settings
-assistant.start()
+vision_system.start()
 ```
 
 ### Monitoring Performance Programmatically
@@ -414,12 +414,12 @@ from src.core.optimized_assistant import OptimizedAssistant
 import threading
 import time
 
-assistant = OptimizedAssistant(show_display=True, camera_ip="192.168.1.100")
+vision_system = OptimizedAssistant(show_display=True, camera_ip="192.168.1.100")
 
 # Custom monitoring thread
 def monitor_performance():
-    while assistant.running:
-        stats = assistant.perf_monitor.get_stats()
+    while vision_system.running:
+        stats = vision_system.perf_monitor.get_stats()
         
         # Check FPS
         if 'fps' in stats['timing']:
@@ -437,11 +437,11 @@ def monitor_performance():
 monitor_thread = threading.Thread(target=monitor_performance, daemon=True)
 monitor_thread.start()
 
-# Start assistant
+# Start system
 try:
-    assistant.start()
+    vision_system.start()
 finally:
-    assistant.cleanup()
+    vision_system.cleanup()
 ```
 
 ## Error Handling

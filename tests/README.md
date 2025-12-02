@@ -1,6 +1,6 @@
 # Tests
 
-Comprehensive testing suite for the Blind Assistant application.
+Comprehensive testing suite for the Real Time Vision System application.
 
 ## Overview
 
@@ -765,7 +765,7 @@ cp /path/to/image.jpg tests/test_data/test_image.jpg
 
 ```bash
 # Ensure you're in the project root
-cd /path/to/BlindAssitant
+cd /path/to/real-time-vision-system
 
 # Add to PYTHONPATH
 export PYTHONPATH=$PYTHONPATH:$(pwd)  # Linux/Mac

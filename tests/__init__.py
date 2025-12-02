@@ -1,1 +1,1 @@
-"""Test package for Blind Assistant"""
+"""Test package for Real Time Vision System"""

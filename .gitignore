@@ -68,8 +68,15 @@ test_videos/
 output/
 results/
 annotated_*/
+
+# Project specific - Documentation (not for GitHub)
+CONTRIBUTING.md
+RELEASE_NOTES.md
+docker/UPDATE_SUMMARY.md
 OPTIMIZATION_ROADMAP.md
 TESTING_OPTIMIZED.md
+CONTRIBUTING.md
+RELEASE_NOTES.md
 # Logs
 *.log
 logs/
