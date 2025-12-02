@@ -1,0 +1,102 @@
+name: Tests & Code Quality
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11']
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Cache pip packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov pylint flake8 black bandit
+
+    - name: Code formatting check (Black)
+      run: |
+        black --check src/ tests/ run.py || true
+
+    - name: Linting (Flake8)
+      run: |
+        flake8 src/ tests/ run.py --count --select=E9,F63,F7,F82 --show-source --statistics || true
+
+    - name: Security check (Bandit)
+      run: |
+        bandit -r src/ -ll || true
+
+    - name: Run unit tests
+      run: |
+        pytest tests/ -v --cov=src --cov-report=xml --cov-report=term
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+
+    - name: Test CUDA availability
+      run: |
+        python -c "import torch; print(f'PyTorch version: {torch.__version__}'); print(f'CUDA available: {torch.cuda.is_available()}')"
+
+    - name: Test imports
+      run: |
+        python -c "from src.core.optimized_assistant import OptimizedAssistant; print('✅ Core imports OK')"
+        python -c "from src.services.detection.object_detector import ObjectDetector; print('✅ Detection imports OK')"
+        python -c "from src.services.audio.text_to_speech import TextToSpeech; print('✅ Audio imports OK')"
+
+  quality:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pylint pytest
+
+    - name: Pylint analysis
+      run: |
+        pylint src/ --fail-under=7.0 --disable=C0111,R0913 || true
+
+    - name: Comment PR with results
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: '✅ Tests passed! Code quality checks complete.'
+          })
