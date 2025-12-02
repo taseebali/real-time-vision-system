@@ -1,5 +1,4 @@
 # 👁️ Real Time Vision System - Beta v0.1.1
-
 > An AI-powered real-time visual analysis system using computer vision and natural language processing for scene understanding and intelligent narration.
 
 [![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
@@ -29,7 +28,6 @@
 - Mobile App Development - Android/iOS deployment
 
 ## 📋 Table of Contents
-- [Demo](#-demo)
 - [Prerequisites](#-prerequisites)
 - [Installation](#-installation)
 - [Quick Start](#-quick-start)
@@ -39,9 +37,6 @@
 - [Troubleshooting](#-troubleshooting)
 - [Contributing](#-contributing)
 
-## 🎬 Demo
-
-[Demo video coming soon]
 
 **What it does:**
 1. Connects to your phone camera via WiFi
@@ -69,6 +64,7 @@
 - **cuDNN**: Compatible with CUDA 11.8
 
 ### Mobile Requirements
+> Note: Currently, it uses camera from the phone using IP Webcam. The codes can be changed to implement computer webcams. Create a request for that specific feature.
 - Android phone with [IP Webcam](https://play.google.com/store/apps/details?id=com.pas.webcam) app
 - Same WiFi network as computer
 
@@ -289,15 +285,6 @@ real-time-vision-system/
 ├── LICENSE                              # MIT License
 └── README.md                            # This file
 ```
-
-### Module Documentation
-
-Each module has its own README with detailed information:
-- **[Core Module](src/core/README.md)** - System orchestration and coordination
-- **[Services](src/services/README.md)** - Individual AI services and utilities
-- **[Detection Services](src/services/detection/README.md)** - Computer vision models
-- **[Audio Services](src/services/audio/README.md)** - Audio synthesis and output
-- **[Tests](tests/README.md)** - Testing framework and guidelines
 
 ## ⚡ Performance
 
