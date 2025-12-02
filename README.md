@@ -272,15 +272,17 @@ real-time-vision-system/
 │   │   ├── README.md                    # Services overview
 │   │   ├── camera_service.py            # IP Webcam integration
 │   │   └── narration_service.py         # Natural language generation
-│   └── main.py                          # Application entry point
-├── tests/
-│   ├── test_data/                       # Sample test images
-│   ├── test_output/                     # Test results
-│   ├── utils/logging/                   # Test logging utilities
-│   ├── README.md                        # Testing documentation
-│   ├── test_cuda.py                     # GPU/CUDA verification
-│   ├── test_image_processing.py         # Integration tests
-│   └── test_nvidia.py                   # NVIDIA driver tests
+│   └── utils/
+│       ├── device_utils.py              # GPU/device utilities
+│       └── performance_monitor.py       # Performance tracking
+├── docker/
+│   ├── Dockerfile                       # Docker configuration
+│   ├── docker-compose.yml               # Docker Compose setup
+│   ├── docker-build.bat                 # Windows build script
+│   └── docker-build.sh                  # Linux build script
+├── .github/
+│   └── workflows/
+│       └── docker.yml                   # Docker build & push workflow
 ├── run.py                               # Main entry point
 ├── requirements.txt                     # Python dependencies
 ├── .gitignore                           # Git ignore rules

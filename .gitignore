@@ -62,6 +62,10 @@ temp_audio*.mp3
 *.wav
 *.tmp
 
+# Project specific - Test files (not for GitHub)
+tests/test_*.py
+tests/run_image_test.py
+
 # Project specific - Test outputs
 test_images/
 test_videos/
