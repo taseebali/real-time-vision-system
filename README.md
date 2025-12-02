@@ -5,7 +5,6 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
 [![CUDA](https://img.shields.io/badge/CUDA-11.8-green.svg)](https://developer.nvidia.com/cuda-toolkit)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-![Tests](https://github.com/taseebali/real-time-vision-system/actions/workflows/tests.yml/badge.svg)
 ![Docker](https://github.com/taseebali/real-time-vision-system/actions/workflows/docker.yml/badge.svg)
 
 ## 🌟 Features
